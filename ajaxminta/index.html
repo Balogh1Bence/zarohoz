@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+	<meta charset="utf-8">
+	<title>AJAX minta</title>
+	<style>
+		table, td, th{
+			border: 1px solid #ddd;
+			border-collapse: collapse;
+		}
+		th, tr{
+		height: 1.5rem;
+		}
+	</style>
+<head>
+<body onload="read()">
+	<h1>AJAX minta	</h1>
+	<div id="content">
+		
+	</div>
+
+
+</body>
+</html>
+<script>	
+	var xhttp;
+
+	function read(){
+		xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			document.getElementById("content").innerHTML = this.responseText;
+		}
+		};
+	xhttp.open("GET", "select.php?q=1", true);
+	xhttp.send(); 
+	}
+	
+	function save()
+	{
+	
+		let vnev = document.getElementById("vnev").innerText;
+		let knev = document.getElementById("knev").innerText;
+		console.log("save");
+		if(vnev.length > 0 && knev.length > 0)
+		{
+		
+			xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				read();
+			
+				}			
+			};
+			xhttp.open("GET", "insert.php?vnev="+vnev+"&knev="+knev, true);
+			xhttp.send();
+			
+		
+			
+		}
+	}
+
+	function delet(clicked){
+		var xhttp;
+		
+		xhttp= new XMLHttpRequest();
+		xhttp.onreadystatechange=function()
+		{
+			if(this.readyState==4 && this.status==200)
+			{
+			read();
+			
+			}
+		};
+		xhttp.open("GET", "delet.php?id="+clicked,true);
+		xhttp.send();
+		
+		
+	}
+	
+</script>
+
